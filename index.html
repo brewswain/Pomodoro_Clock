@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pomodoro Clock</title>
+    <link rel="stylesheet" href="style/main.css" />
+  </head>
+  <body>
+    <div class="timer-text">
+      <h1 class="title-text">Focus Period</h1>
+      <h2 class="countdown-text">25:00</h2>
+    </div>
+    <div class="container">
+      <div class="circle">
+        <svg
+          version="1.1"
+          viewBox="0 0 500 500"
+          preserveAspectRatio="xMinYMin meet"
+          width="500"
+          height="500"
+        >
+          <circle
+            cx="50%"
+            cy="50%"
+            r="220"
+            stroke="#319fa7"
+            stroke-width="15"
+            fill="#28282b"
+          />
+        </svg>
+      </div>
+    </div>
+    <script src="scripts/countdown.js"></script>
+  </body>
+</html>

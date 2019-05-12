@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #28282b;
+  color: white;
+}
+
+.timer-text {
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title-text {
+  position: relative;
+  top: 7em;
+  font-size: 2.3rem;
+}
+
+.countdown-text {
+  position: relative;
+  top: 2em;
+  font-size: 6em;
+}
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.circle {
+  position: absolute;
+  top: 10em;
+}
+
+svg {
+  transform: rotateY(-180deg) rotateZ(-90deg);
+}
+
+svg circle {
+  stroke-dasharray: 1380;
+  stroke-dashoffset: 1380;
+  stroke-linecap: round;
+  stroke-width: 15px;
+  fill: none;
+  animation: countdown 1500s linear infinite forwards;
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 1380;
+  }
+}
