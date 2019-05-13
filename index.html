@@ -6,12 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Pomodoro Clock</title>
     <link rel="stylesheet" href="style/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
+    <section class="control-buttons">
+      <button>
+        <i class="fa fa-play fa-3x" id="play-button" aria-hidden="true"></i>
+      </button>
+
+      <button>
+        <i class="fa fa-pause fa-3x" id="pause-button" aria-hidden="true"></i>
+      </button>
+
+      <button>
+        <i class="fa fa-stop fa-3x" id="stop-button" aria-hidden="true"></i>
+      </button>
+
+      <button>
+        <i class="fas fa-redo-alt fa-3x" id="refresh-button"></i>
+      </button>
+    </section>
+
     <div class="timer-text">
       <h1 class="title-text">Focus Period</h1>
-      <h2 class="countdown-text">25:00</h2>
+      <h2 class="countdown-text" id="timerCountdown">25:00</h2>
     </div>
+
     <div class="container">
       <div class="circle">
         <svg
@@ -22,6 +47,7 @@
           height="500"
         >
           <circle
+            id="timerCircle"
             cx="50%"
             cy="50%"
             r="220"

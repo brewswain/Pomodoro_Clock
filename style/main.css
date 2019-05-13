@@ -4,6 +4,54 @@ body {
   color: white;
 }
 
+button {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+i {
+  color: white;
+  background: #28282b;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+}
+
+button i:active {
+  box-shadow: none;
+  transform: translateY(1px);
+}
+
+#play-button {
+  display: inline;
+  position: absolute;
+  top: 70%;
+  left: 39%;
+}
+#pause-button {
+  display: inline;
+  position: absolute;
+  top: 70%;
+  left: 45%;
+}
+
+#stop-button {
+  display: inline;
+  position: absolute;
+  top: 70%;
+  left: 54%;
+}
+
+#refresh-button {
+  display: inline;
+  position: absolute;
+  top: 70%;
+  left: 60%;
+}
+
 .timer-text {
   position: relative;
   margin: 0 auto;
@@ -18,8 +66,8 @@ body {
 
 .countdown-text {
   position: relative;
-  top: 2em;
-  font-size: 6em;
+  top: 1.8em;
+  font-size: 7em;
 }
 .container {
   display: flex;
