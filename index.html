@@ -14,6 +14,7 @@
     />
   </head>
   <body>
+    <!--<embed class="rain" src="sounds\rainymood loop.mp4" /> rainymood -->
     <section class="control-buttons">
       <form name="mainForm" id="session-form">
         <input
@@ -31,26 +32,35 @@
           placeholder="Break time!(Minutes)"
         />
       </form>
-      <button>
+      <button
+        type="submit"
+        value="Submit"
+        form="session-form break-form"
+        id="btn-timer"
+      >
+        Custom Timer
+      </button>
+
+      <button id="play-button">
         <i
           class="fa fa-play fa-3x"
-          id="play-button"
+          id="playButton"
           data-time="1500"
           aria-hidden="true"
         ></i
         ><!--Data-time is used pre-emptively here to give button functionality, will edit later-->
       </button>
 
-      <button>
-        <i class="fa fa-pause fa-3x" id="pause-button" aria-hidden="true"></i>
+      <button id="pause-button">
+        <i class="fa fa-pause fa-3x" id="pauseButton" aria-hidden="true"></i>
       </button>
 
-      <button>
-        <i class="fa fa-stop fa-3x" id="stop-button" aria-hidden="true"></i>
+      <button id="stop-button">
+        <i class="fa fa-stop fa-3x" id="stopButton" aria-hidden="true"></i>
       </button>
 
-      <button>
-        <i class="fas fa-redo-alt fa-3x" id="refresh-button"></i>
+      <button id="refresh-button">
+        <i class="fas fa-redo-alt fa-3x" id="refreshButton"></i>
       </button>
     </section>
 
