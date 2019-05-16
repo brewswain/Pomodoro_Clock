@@ -15,8 +15,30 @@
   </head>
   <body>
     <section class="control-buttons">
+      <form name="mainForm" id="session-form">
+        <input
+          type="text"
+          name="mainMinutes"
+          id="mainMinutes"
+          placeholder="Session length(Minutes)"
+        />
+      </form>
+      <form name="breakForm" id="break-form">
+        <input
+          type="text"
+          name="breakMinutes"
+          id="breakMinutes"
+          placeholder="Break time!(Minutes)"
+        />
+      </form>
       <button>
-        <i class="fa fa-play fa-3x" id="play-button" aria-hidden="true"></i>
+        <i
+          class="fa fa-play fa-3x"
+          id="play-button"
+          data-time="1500"
+          aria-hidden="true"
+        ></i
+        ><!--Data-time is used pre-emptively here to give button functionality, will edit later-->
       </button>
 
       <button>
@@ -33,7 +55,7 @@
     </section>
 
     <div class="timer-text">
-      <h1 class="title-text">Focus Period</h1>
+      <h1 class="title-text" id="titleText">Focus Period</h1>
       <h2 class="countdown-text" id="timerCountdown">25:00</h2>
     </div>
 
@@ -47,6 +69,7 @@
           height="500"
         >
           <circle
+            class="timerCircle"
             id="timerCircle"
             cx="50%"
             cy="50%"
@@ -58,6 +81,9 @@
         </svg>
       </div>
     </div>
+    <!--Experimental circle alternative-->
+    <!--<div class="countdown-circle"></div>-->
+    <script src="scripts/form.js"></script>
     <script src="scripts/countdown.js"></script>
   </body>
 </html>
