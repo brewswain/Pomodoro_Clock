@@ -35,15 +35,45 @@ function timer(seconds) {
   let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
   circle.style.animation = `countdown ${seconds}s linear infinite`;
   circle.style.stroke = '#319fa7';
+  animationResetSubmit();
+
+  countdown = setInterval(() => {
+    const secondsLeft = Math.round((then - Date.now()) / 1000);
+
+    if (secondsLeft <= 0) {
+      clearInterval(countdown);
+      alarm.currentTime = 0;
+      alarm.play();
+      titleText.textContent = 'Break Time!';
+      breakTimer(300);
+    }
+    displayTimeLeft(secondsLeft);
+  }, 1000);
+}
+
+function breakTimer(seconds) {
+  const now = Date.now();
+  const then = now + seconds * 1000;
+  clearInterval(countdown);
+  displayTimeLeft(seconds);
+
+  animationResetSubmit();
+  let circle = document.querySelector('circle');
+  titleText.textContent = 'Break Time!';
+  circle.style.stroke = '#e50914';
+  circle.style.animation = `countdown 300s linear infinite`;
+  circle.style.stroke = '#e50914';
+  animationResetSubmit();
 
   countdown = setInterval(() => {
     const secondsLeft = Math.round((then - Date.now()) / 1000);
 
     if (secondsLeft == 0) {
+      clearInterval(countdown);
       alarm.currentTime = 0;
       alarm.play();
-      clearInterval(countdown);
-      return;
+      titleText.textContent = 'Focus Period';
+      timer(seconds);
     }
     displayTimeLeft(secondsLeft);
   }, 1000);
@@ -60,12 +90,14 @@ function displayTimeLeft(seconds) {
 }
 
 function buttonStartTimer() {
-  console.log(this);
   const seconds = parseInt(this.dataset.time);
   timer(seconds);
 }
 
-function buttonPauseTimer() {}
+function buttonPauseTimer() {
+  clearInterval(countdown);
+  circle.animation.pause;
+}
 
 function buttonStopTimer() {}
 
