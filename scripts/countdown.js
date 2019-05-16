@@ -2,12 +2,10 @@ document
   .getElementById('play-button')
   .addEventListener('click', buttonStartTimer);
 
-//Reset Animation for circle
-('use strict');
-let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
-element = document.getElementById('timerCircle');
+let countdown;
+let animation = document.querySelector('#timerCircle');
+const timerDisplay = document.querySelector('.countdown-text');
 
-// reset the transition by...
 element.addEventListener(
   'click',
   function(e) {
@@ -28,11 +26,6 @@ element.addEventListener(
   false
 );
 
-//Countdown timer funcitonality
-let countdown;
-let animation = document.querySelector('#timerCircle');
-const timerDisplay = document.querySelector('.countdown-text');
-
 function timer(seconds) {
   clearInterval(countdown);
   const now = Date.now();
@@ -42,7 +35,9 @@ function timer(seconds) {
   countdown = setInterval(() => {
     const secondsLeft = Math.round((then - Date.now()) / 1000);
 
-    circle.style.animation = `countdown ${seconds}s `;
+    let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
+
+    circle.style.animation = `countdown ${seconds}s linear`;
 
     if (secondsLeft < 0) {
       clearInterval(countdown);
@@ -58,7 +53,7 @@ function displayTimeLeft(seconds) {
   const display = `${minutes}:${
     remainderSeconds < 10 ? '0' : ''
   }${remainderSeconds}`;
-
+  document.title = display;
   timerDisplay.textContent = display;
 }
 
@@ -66,6 +61,22 @@ function buttonStartTimer() {
   const seconds = parseInt(this.dataset.time);
   timer(seconds);
 }
+
+//Animation sync to timer
+/*
+let style = document.createElement('style');
+style.innerHTML =
+	'svg circle {' +
+		animation: countdown `{seconds}`s linear infinite forwards; +
+    '}';
+    
+
+// Get the first script tag
+var ref = document.querySelector('script');
+
+// Insert our new styles before the first script tag
+ref.parentNode.insertBefore(style, ref);
+*/
 
 function pauseCountdown() {
   clearInterval(id);

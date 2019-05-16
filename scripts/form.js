@@ -1,11 +1,10 @@
+let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
+element = document.getElementById('timerCircle');
+('use strict');
+// reset the transition by...
 document.mainForm.addEventListener('submit', function(e) {
-  ('use strict');
-  let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
-  element = document.getElementById('timerCircle');
-
-  // reset the transition by...
-
   e.preventDefault();
+  animationResetSubmit();
   const mins = this.mainMinutes.value;
   if (mins > 999) {
     alert('Please choose a lower amount of minutes(999 max).');
@@ -13,6 +12,22 @@ document.mainForm.addEventListener('submit', function(e) {
   }
   timer(mins * 60);
   this.reset();
+});
+
+document.breakForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  animationResetSubmit();
+  const mins = this.breakMinutes.value;
+  if (mins > 999) {
+    alert('Please choose a lower amount of minutes(999 max).');
+    return;
+  }
+  timer(mins * 60);
+  this.reset();
+  titleText.textContent = 'Break Time!';
+});
+
+function animationResetSubmit() {
   element.addEventListener(
     'submit',
     function(e) {
@@ -32,16 +47,4 @@ document.mainForm.addEventListener('submit', function(e) {
     },
     false
   );
-});
-
-document.breakForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const mins = this.breakMinutes.value;
-  if (mins > 999) {
-    alert('Please choose a lower amount of minutes(999 max).');
-    return;
-  }
-  timer(mins * 60);
-  this.reset();
-  titleText.textContent = 'Break Time!';
-});
+}
