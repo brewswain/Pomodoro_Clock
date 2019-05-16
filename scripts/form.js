@@ -1,30 +1,31 @@
+('use strict');
 let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
 element = document.getElementById('timerCircle');
-('use strict');
-// reset the transition by...
+
+animationResetSubmit();
+
 document.mainForm.addEventListener('submit', function(e) {
   e.preventDefault();
-  animationResetSubmit();
+
   const mins = this.mainMinutes.value;
   if (mins > 999) {
     alert('Please choose a lower amount of minutes(999 max).');
     return;
   }
-  timer(mins * 60);
+  submitTimer(mins * 60);
   this.reset();
 });
 
 document.breakForm.addEventListener('submit', function(e) {
   e.preventDefault();
-  animationResetSubmit();
+
   const mins = this.breakMinutes.value;
   if (mins > 999) {
     alert('Please choose a lower amount of minutes(999 max).');
     return;
   }
-  timer(mins * 60);
+  submitBreakTimer(mins * 60);
   this.reset();
-  titleText.textContent = 'Break Time!';
 });
 
 function animationResetSubmit() {
@@ -32,19 +33,66 @@ function animationResetSubmit() {
     'submit',
     function(e) {
       e.preventDefault;
-
-      // -> removing the class
       element.classList.remove('timerCircle');
-
-      //-> triggering reflow /* The actual magic */
-      // without this it wouldn't work. Try uncommenting the line and the transition won't be retriggered.
-      // element.offsetWidth = element.offsetWidth;
-      // Do this instead:
       void element.offsetWidth;
-
-      // -> and re-adding the class
       element.classList.add('timerCircle');
     },
     false
   );
+}
+
+/* refactor this for custom form */
+function submitTimer(seconds) {
+  const now = Date.now();
+  const then = now + seconds * 1000;
+  clearInterval(countdown);
+  displayTimeLeft(seconds);
+  titleText.textContent = 'Focus Period';
+
+  countdown = setInterval(() => {
+    const secondsLeft = Math.round((then - Date.now()) / 1000);
+
+    let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
+
+    circle.style.animation = `countdown ${seconds}s linear infinite`;
+    circle.style.stroke = '#319fa7';
+
+    if (secondsLeft == 0) {
+      clearInterval(countdown);
+      alarm.currentTime = 0;
+      alarm.play();
+      titleText.textContent = 'Break Time!';
+      submitBreakTimer(seconds);
+    }
+    displayTimeLeft(secondsLeft);
+  }, 1000);
+}
+
+function submitBreakTimer(seconds) {
+  clearInterval(countdown);
+
+  const now = Date.now();
+  const then = now + seconds * 1000;
+  displayTimeLeft(seconds);
+  titleText.textContent = 'Break Time!';
+  circle.style.stroke = '#e50914';
+
+  countdown = setInterval(() => {
+    animationResetSubmit();
+    const secondsLeft = Math.round((then - Date.now()) / 1000);
+
+    let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
+
+    circle.style.animation = `countdown ${seconds}s linear infinite`;
+    circle.style.stroke = '#e50914';
+
+    if (secondsLeft == 0) {
+      clearInterval(countdown);
+      alarm.currentTime = 0;
+      alarm.play();
+      titleText.textContent = 'Focus Period';
+      submitTimer(seconds);
+    }
+    displayTimeLeft(secondsLeft);
+  }, 1000);
 }
