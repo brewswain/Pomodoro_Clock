@@ -1,5 +1,14 @@
 let countdown;
+let seconds = 1500;
+let isBreak = true;
+let isSuspend = true;
+let workTime = 25;
+let breakTime = 5;
 
+let customSession = document.getElementById('mainMinutes');
+let customBreak = document.getElementById('breakMinutes');
+const status = document.querySelector('#titleText');
+const playButton = document.querySelector('#playButton');
 const animation = document.querySelector('#timerCircle');
 const timerDisplay = document.querySelector('.countdown-text');
 const alarm = document.createElement('audio');
@@ -16,39 +25,49 @@ document
 document
   .querySelector('#pauseButton')
   .addEventListener('click', buttonPauseTimer);
-document
-  .querySelector('#stopButton')
-  .addEventListener('click', buttonStopTimer);
+
 document
   .querySelector('#refreshButton')
   .addEventListener('click', buttonRefreshTimer);
 
-animationResetSubmit();
+document
+  .querySelector('#customTimer')
+  .addEventListener('click', buttonCustomTimer);
 
-function timer(seconds) {
-  const now = Date.now();
-  const then = now + seconds * 1000;
-  displayTimeLeft(seconds);
-  titleText.textContent = 'Focus Period';
-  clearInterval(countdown);
+animationResetSubmit(); //called from form.js
+function circleAnimation() {
+  if (isBreak) {
+    circle.style.animation = `countdown ${seconds}s linear infinite`;
+  } else if (!isBreak) {
+    circle.style.animation = `countdown 300s linear infinite`;
+  }
+}
+
+function timer() {
+  seconds--;
 
   let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
-  circle.style.animation = `countdown ${seconds}s linear infinite`;
-  circle.style.stroke = '#319fa7';
+  //circle.style.animation = `countdown ${seconds}s linear infinite`;
+  if (isBreak) {
+    circle.style.stroke = '#319fa7';
+  } else {
+  }
   animationResetSubmit();
 
-  countdown = setInterval(() => {
-    const secondsLeft = Math.round((then - Date.now()) / 1000);
-
-    if (secondsLeft <= 0) {
-      clearInterval(countdown);
-      alarm.currentTime = 0;
-      alarm.play();
-      titleText.textContent = 'Break Time!';
-      breakTimer(300);
+  if (seconds == 0) {
+    clearInterval(countdown);
+    circle.style.stroke = '#e50914';
+    alarm.currentTime = 0;
+    alarm.play();
+    seconds = (isBreak ? breakTime : workTime) * 60;
+    isBreak = !isBreak;
+    if (isBreak) {
+      circle.style.animation = `countdown ${seconds}s linear infinite`;
+    } else if (!isBreak) {
+      circle.style.animation = `countdown 300s linear infinite`;
     }
-    displayTimeLeft(secondsLeft);
-  }, 1000);
+    countdown = setInterval(timer, 1000);
+  }
 }
 
 function breakTimer(seconds) {
@@ -57,12 +76,6 @@ function breakTimer(seconds) {
   clearInterval(countdown);
   displayTimeLeft(seconds);
 
-  animationResetSubmit();
-  let circle = document.querySelector('circle');
-  titleText.textContent = 'Break Time!';
-  circle.style.stroke = '#e50914';
-  circle.style.animation = `countdown 300s linear infinite`;
-  circle.style.stroke = '#e50914';
   animationResetSubmit();
 
   countdown = setInterval(() => {
@@ -79,26 +92,86 @@ function breakTimer(seconds) {
   }, 1000);
 }
 
+function buttonCustomTimer() {
+  workTime = customSession.value;
+  breakTime = customBreak.value;
+  console.log(workTime); //Submit is capturing custom timer length
+  console.log(breakTime); // Submit is capturing custom break length
+
+  //Insert Custom Code Below
+  function timer() {
+    clearInterval(countdown);
+    animationResetSubmit();
+    if (isBreak) {
+      seconds = workTime;
+      console.log(workTime);
+    } else {
+      seconds = breakTime;
+      console.log(breakTime);
+    }
+
+    let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
+    if (isBreak) {
+      circle.style.stroke = '#319fa7';
+    } else {
+      circle.style.stroke = '#e50914';
+    }
+
+    if (seconds == 0) {
+      clearInterval(countdown);
+      alarm.currentTime = 0;
+      alarm.play();
+      seconds = (isBreak ? breakTime : workTime) * 60;
+      isBreak = !isBreak;
+      countdown = setInterval(timer, 1000);
+    }
+  }
+  //
+
+  //Strategy is to run countdown loop whilst using new workTime and breakTime values? Or maybe I should make a custom loop that defines seconds as the custom workTime/breakTime values * 60
+}
+
 function displayTimeLeft(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remainderSeconds = seconds % 60;
-  const display = `${minutes}:${
+  let minutes = Math.floor(seconds / 60);
+  let remainderSeconds = seconds % 60;
+  timerDisplay.textContent = `${minutes}:${
     remainderSeconds < 10 ? '0' : ''
   }${remainderSeconds}`;
-  document.title = display;
-  timerDisplay.textContent = display;
 }
 
 function buttonStartTimer() {
-  const seconds = parseInt(this.dataset.time);
-  timer(seconds);
+  circleAnimation();
+  isSuspend = !isSuspend;
+  if (!isSuspend) {
+    countdown = setInterval(timer, 1000);
+  }
 }
 
 function buttonPauseTimer() {
+  circle.style.webkitAnimationPlayState = 'paused';
   clearInterval(countdown);
-  circle.animation.pause;
+  isSuspend = !isSuspend;
 }
 
-function buttonStopTimer() {}
+function buttonRefreshTimer() {
+  circle.style.webkitAnimationPlayState = 'paused';
+  animationResetSubmit();
+  clearInterval(countdown);
 
-function buttonRefreshTimer() {}
+  seconds = workTime * 60;
+  countdown = 0;
+  isPaused = true;
+  isSuspend = true;
+}
+
+function updateHTML() {
+  displayTimeLeft(seconds);
+
+  isBreak
+    ? (status.textContent = 'Focus Period')
+    : (status.textContent = 'Break Time!');
+}
+
+window.setInterval(updateHTML, 100);
+
+document.onclick = updateHTML;
