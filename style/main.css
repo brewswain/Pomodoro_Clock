@@ -19,7 +19,7 @@ button {
   outline: none;
 }
 
-#btn-timer {
+#customTimer {
   display: block;
   background: #dfe1e5;
   width: 200px;
@@ -37,7 +37,7 @@ button {
   transition-duration: 0.1s;
 }
 
-#btn-timer:active {
+#customTimer:active {
   box-shadow: none;
   transform: translateY(1px);
 }
@@ -57,28 +57,21 @@ button i:active {
 #play-button {
   display: inline;
   position: absolute;
-  top: 75%;
+  bottom: 20%;
   left: 39%;
 }
 #pause-button {
   display: inline;
   position: absolute;
-  top: 75%;
-  left: 45%;
-}
-
-#stop-button {
-  display: inline;
-  position: absolute;
-  top: 75%;
-  left: 54%;
+  bottom: 20%;
+  left: 49%;
 }
 
 #refresh-button {
   display: inline;
   position: absolute;
-  top: 75%;
-  left: 60%;
+  bottom: 20%;
+  left: 59%;
 }
 
 .title-text {
@@ -177,7 +170,7 @@ input::placeholder {
   right: 0;
 }
 
-@media only screen and (max-width: 799px) {
+@media only screen and (max-width: 400px) {
   #session-form {
     position: absolute;
     left: 5%;
@@ -211,14 +204,14 @@ input::placeholder {
     left: 75%;
     padding-top: 15px;
   }
-  #btn-timer {
+  #customTimer {
     position: absolute;
     left: 30%;
     top: 10%;
   }
 }
 
-@media only screen and (min-width: 800px) and (max-width: 960px) {
+@media only screen and (min-width: 800px) and (max-width: 1000px) {
   #session-form {
     position: absolute;
     left: 38%;
@@ -239,12 +232,12 @@ input::placeholder {
 
   #pause-button {
     position: absolute;
-    left: 40%;
+    left: 48%;
     padding-top: 15px;
   }
   #stop-button {
     position: absolute;
-    left: 55%;
+    left: 54%;
     padding-top: 15px;
   }
   #refresh-button {
@@ -252,10 +245,10 @@ input::placeholder {
     left: 70%;
     padding-top: 15px;
   }
-  #btn-timer {
+  #customTimer {
     position: absolute;
     left: 70%;
-    top: 6%;
+    top: 4%;
     height: 50px;
   }
 }

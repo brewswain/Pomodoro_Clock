@@ -36,7 +36,7 @@
         type="submit"
         value="Submit"
         form="session-form break-form"
-        id="btn-timer"
+        id="customTimer"
       >
         Custom Timer
       </button>
@@ -47,16 +47,11 @@
           id="playButton"
           data-time="1500"
           aria-hidden="true"
-        ></i
-        ><!--Data-time is used pre-emptively here to give button functionality, will edit later-->
+        ></i>
       </button>
 
       <button id="pause-button">
         <i class="fa fa-pause fa-3x" id="pauseButton" aria-hidden="true"></i>
-      </button>
-
-      <button id="stop-button">
-        <i class="fa fa-stop fa-3x" id="stopButton" aria-hidden="true"></i>
       </button>
 
       <button id="refresh-button">
@@ -91,8 +86,7 @@
         </svg>
       </div>
     </div>
-    <!--Experimental circle alternative-->
-    <!--<div class="countdown-circle"></div>-->
+
     <script src="scripts/form.js"></script>
     <script src="scripts/countdown.js"></script>
   </body>
