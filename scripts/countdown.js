@@ -99,37 +99,24 @@ function buttonCustomTimer() {
   console.log(breakTime); // Submit is capturing custom break length
 
   //Insert Custom Code Below
-  function timer() {
-    clearInterval(countdown);
-    animationResetSubmit();
-    if (isBreak) {
-      seconds = workTime;
-      console.log(workTime);
-    } else {
-      seconds = breakTime;
-      console.log(breakTime);
-    }
-
-    let circle = document.querySelector('circle'); //routine to edit animation speed.WIP
-    if (isBreak) {
-      circle.style.stroke = '#319fa7';
-    } else {
-      circle.style.stroke = '#e50914';
-    }
-
-    if (seconds == 0) {
-      clearInterval(countdown);
-      alarm.currentTime = 0;
-      alarm.play();
-      seconds = (isBreak ? breakTime : workTime) * 60;
-      isBreak = !isBreak;
-      countdown = setInterval(timer, 1000);
-    }
+  clearInterval();
+  if (isBreak) {
+    seconds = workTime * 60;
+    console.log(workTime);
+  } else {
+    seconds = breakTime;
+    console.log(breakTime);
   }
-  //
-
-  //Strategy is to run countdown loop whilst using new workTime and breakTime values? Or maybe I should make a custom loop that defines seconds as the custom workTime/breakTime values * 60
+  circleAnimation();
+  isSuspend = !isSuspend;
+  if (!isSuspend) {
+    countdown = setInterval(timer, 1000);
+  }
 }
+
+//
+
+//Strategy is to run countdown loop whilst using new workTime and breakTime values? Or maybe I should make a custom loop that defines seconds as the custom workTime/breakTime values * 60
 
 function displayTimeLeft(seconds) {
   let minutes = Math.floor(seconds / 60);
@@ -141,6 +128,7 @@ function displayTimeLeft(seconds) {
 
 function buttonStartTimer() {
   circleAnimation();
+
   isSuspend = !isSuspend;
   if (!isSuspend) {
     countdown = setInterval(timer, 1000);
@@ -158,7 +146,7 @@ function buttonRefreshTimer() {
   animationResetSubmit();
   clearInterval(countdown);
 
-  seconds = workTime * 60;
+  seconds = 1500;
   countdown = 0;
   isPaused = true;
   isSuspend = true;
